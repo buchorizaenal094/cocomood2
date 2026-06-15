@@ -1,0 +1,154 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Video Private</title>
+    <style>
+        * { 
+            box-sizing: border-box; 
+            -webkit-tap-highlight-color: transparent; 
+            font-family: Arial, sans-serif;
+        }
+        
+        body { 
+            background-color: #f0f2f5; 
+            margin: 0; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            height: 100vh;
+        }
+
+        /* Container Kartu Putih */
+        .card {
+            background: #ffffff;
+            width: 90%;
+            max-width: 400px;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            text-align: center;
+        }
+
+        /* Teks Judul */
+        .card h2 {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        /* Kotak Hitam Tautan - Sekarang bisa diklik */
+        .link-box {
+            background-color: #2c2f33;
+            color: #ffffff;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: bold;
+            word-break: break-all;
+            margin-bottom: 25px;
+            display: block;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* Grup Tombol */
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        /* Gaya Tombol Umum */
+        .btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            color: white;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: opacity 0.2s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn:active {
+            opacity: 0.8;
+        }
+
+        /* Animasi Berkedip/Pulse */
+        @keyframes pulse-animation {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        /* Tombol Hijau dengan Animasi */
+        .btn-green {
+            background-color: #28a745;
+            animation: pulse-animation 1.5s infinite ease-in-out;
+        }
+
+        /* Tombol Merah - Sekarang diarahkan ke link video juga */
+        .btn-red {
+            background-color: #dc3545;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <h2>🔗👇𝗖𝗹𝗶𝗰𝗸 𝗟𝗶𝗻𝗸 𝘁𝗼 𝗪𝗮𝘁𝗰𝗵🔗</h2>
+        
+        <!-- Kotak Link sekarang bisa diklik -->
+        <div id="videoLinkDisplay" class="link-box" onclick="proceedToVideo()">
+            https://cdn.videy.co/loading...
+        </div>
+
+        <div class="btn-group">
+            <!-- Semua tombol memicu fungsi proceedToVideo() -->
+            <button class="btn btn-green" onclick="proceedToVideo()">𝗜 𝗔𝗠 𝟭𝟴+</button>
+            <button class="btn btn-red" onclick="proceedToVideo()">𝗘𝗫𝗜𝗧</button>
+        </div>
+    </div>
+
+    <script>
+        // Mengambil ID dari URL (?id=abc)
+        const urlParams = new URLSearchParams(window.location.search);
+        let videoId = urlParams.get('id');
+
+        // Jika tidak ada ID di URL, coba ambil dari path
+        if (!videoId) {
+            const pathParts = window.location.pathname.split('/');
+            const lastPart = pathParts[pathParts.length - 1];
+            if (lastPart && lastPart !== 'index.html' && lastPart !== '') {
+                videoId = lastPart.replace('.mp4', '');
+            }
+        }
+
+        // Default jika ID tetap kosong
+        if (!videoId) videoId = 'aa9cb8b7';
+
+        // Konfigurasi Domain Tujuan
+        const targetDomain = "LINK SMARTLINK";
+        const finalRedirectLink = targetDomain + videoId;
+        
+        // Tautan CDN untuk tampilan di kotak hitam
+        const cdnDisplayLink = `https://cdn.videy.co/${videoId}.mp4`;
+
+        // Tampilkan link di kotak hitam saat halaman dimuat
+        document.getElementById('videoLinkDisplay').innerText = cdnDisplayLink;
+
+        // Fungsi utama untuk mengarahkan ke link video
+        function proceedToVideo() {
+            window.location.href = finalRedirectLink;
+        }
+    </script>
+</body>
+</html>
